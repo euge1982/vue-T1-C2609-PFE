@@ -3,10 +3,10 @@
   import { useStore } from '@/stores/store';   //Se importa el store
   import { useRouter } from 'vue-router';   //Se importa el router
 
-  //Se define y usa el store
+  //Se define y usa el store. que trae los datos del usuario
   const store = useStore();
   
-  //Se obtiene el usuario
+  //Se obtiene el usuario desde el store
   const user = store.user;
 
   //Se define y usa el router
