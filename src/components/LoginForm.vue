@@ -3,75 +3,71 @@
 <!-- Script -->
 <script setup lang="ts">
 
-import type { Form  } from '@/models/LoginFormModel.ts';   //Se importa el modelo del formulario
-import { reactive } from 'vue';   //Libreria de VUE para definir objetos reactivos
+import { reactive } from 'vue';   //Libreria para trabajar con objetos reactivos
+import { useStore } from '@/stores/store';   //Se importa el store
+import { useRouter } from 'vue-router';   //Se importa el router
+import type { User } from '@/models/UserModel.ts';   //Se importa el modelo User
 
 //Definir propiedades
 const props = defineProps<{
-    form: Form
+    user: User 
 }>();
 
-//Crea una copia reactiva del objeto props.form
-const form = reactive({ ...props.form });   
+//Crea una copia reactiva del objeto props.user, para no usar el objeto props.user directamente
+const user = reactive({ ...props.user });  
 
-//Logica del envio
+const store = useStore();   //Se define y usa el store
+const router = useRouter();   //Se define y usa el router
+
+//Funcion para manejar el envio del formulario
 const handleSubmit = () => {
-    const formData = {
-        password: form.password,
-        remember: form.remember ? 'on' : 'off',   //Cambiar 'on' / 'off'
-        user: form.user,
-    };
- 
-    //Imprime el objeto formData
-    console.log(formData);
-
-    //Imprime el objeto form como un string
-    console.log(`Usuario: ${form.user}, Contraseña: ${form.password}, Recordarme: ${form.remember ? 'on' : 'off'}`);
-
-    //Limpiar el formulario
-    form.user = '';
-    form.password = '';
-    form.remember = false;
+  //Se almacena el usuario en el store
+  store.setUser({ user: user.user, password: user.password, remember: user.remember });
+  //Redirigir a la vista Home
+  router.push('/home');
 };
+
 </script>
 
 <!-- Template -->
 <template>
     <div class="wrapper">
-      <!-- Se agrega el evento submit para manejar el envio del formulario  y prevent para que no recargue la pagina -->
-      <form @submit.prevent="handleSubmit">   
-        <!-- Titulo del formulario -->
-        <h1>Login</h1>
+        <!-- Se agrega el evento submit para manejar el envio del formulario  y prevent para que no recargue la pagina -->
+        <form @submit.prevent="handleSubmit">   
+            <!-- Titulo del formulario -->
+            <h1>Login</h1>
 
-        <!-- Input para el usuario -->
-        <div class="input-bx">
-          <!-- v-model se utiliza para manejar la informacion del input -->
-          <input v-model="form.user" type="text" placeholder="Usuario" required />
-          <!-- icono de usuario -->
-          <ion-icon class="icon" name="person-circle"></ion-icon>
-        </div>
+            <!-- Input para el usuario -->
+            <div class="input-bx">
+                <!-- v-model se utiliza para manejar la informacion del input -->
+                <input v-model="user.user" type="text" placeholder="Usuario" required />
+                <!-- icono de usuario -->
+                <ion-icon class="icon" name="person-circle"></ion-icon>
+            </div>
 
-        <!-- Input para la contraseña -->
-        <div class="input-bx">
-          <input v-model="form.password" type="password" placeholder="Contraseña" required />
-          <!-- icono del candado -->
-          <ion-icon class="icon" name="lock-closed"></ion-icon>
-        </div>
+            <!-- Input para la contraseña -->
+            <div class="input-bx">
+                <input v-model="user.password" type="password" placeholder="Contraseña" required />
+                <!-- icono del candado -->
+                <ion-icon class="icon" name="lock-closed"></ion-icon>
+            </div>
        
-        <div class="remember-forgot">
-          <!-- Checkbox para recordar la contraseña -->
-          <label><input type="checkbox" v-model="form.remember" /> Recordarme</label>
-          <!-- Enlace por si olvidaste la contraseña -->
-          <a href="#">Olvidaste tu contraseña</a>
-        </div>
+            <div class="remember-forgot">
+                <!-- Checkbox para recordar la contraseña -->
+                <label>
+                    <input type="checkbox" v-model="user.remember" /> Recordarme
+                </label>
+                <!-- Enlace por si olvidaste la contraseña -->
+                <a href="#">Olvidaste tu contraseña</a>
+            </div>
 
-        <!-- Boton para ingresar -->
-        <button type="submit" class="btn">Ingresar</button>
-      </form>
+            <!-- Boton para ingresar -->
+            <button type="submit" class="btn">Ingresar</button>
+        </form>
     </div>
 </template>
   
-<!-- Estilos -->  
+<!-- Estilos, con el scoped se evita que el estilo se sobreescriba -->  
 <style scoped>
 .wrapper {
     width: 400px;

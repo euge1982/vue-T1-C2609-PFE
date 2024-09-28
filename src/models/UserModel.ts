@@ -1,6 +1,5 @@
-//Interfaz del formulario
-
-export interface Form {
+//Interfaz del User
+export interface User {
     user: string;
     password: string;
     remember: boolean;

@@ -1,14 +1,13 @@
+<!-- App -->
+
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/"></RouterLink>
-      </nav>
-    </div>
-  </header>
+  <!-- Componente App -->
+    <nav>
+      <RouterLink to="/"></RouterLink>
+    </nav>
   <RouterView />
 </template>
