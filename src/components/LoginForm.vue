@@ -8,10 +8,6 @@ import { useStore } from '@/stores/store';   //Se importa el store
 import { useRouter } from 'vue-router';   //Se importa el router
 import type { User } from '@/models/UserModel.ts';   //Se importa el modelo User
 
-//Definir propiedades no era necesario
-/*const props = defineProps<{
-    user: User 
-}>();*/
 //Se crea una variable del tipo User
 var _user : User ={
     user: '',
