@@ -8,19 +8,15 @@ import { useStore } from '@/stores/store';   //Se importa el store
 import { useRouter } from 'vue-router';   //Se importa el router
 import type { User } from '@/models/UserModel.ts';   //Se importa el modelo User
 
-//Definir propiedades no era necesario
-/*const props = defineProps<{
-    user: User 
-}>();*/
 //Se crea una variable del tipo User
-var _user : User ={
+const _user : User = reactive<User> ({
     user: '',
     password: '',
     remember: false
-}
+});
 
 //Crea una copia reactiva del objeto _user
-const user = reactive({ ..._user });  
+//const user = reactive({ ..._user });  
 
 const store = useStore();   //Se define y usa el store
 const router = useRouter();   //Se define y usa el router
