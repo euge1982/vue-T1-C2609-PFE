@@ -8,13 +8,19 @@ import { useStore } from '@/stores/store';   //Se importa el store
 import { useRouter } from 'vue-router';   //Se importa el router
 import type { User } from '@/models/UserModel.ts';   //Se importa el modelo User
 
-//Definir propiedades
-const props = defineProps<{
+//Definir propiedades no era necesario
+/*const props = defineProps<{
     user: User 
-}>();
+}>();*/
+//Se crea una variable del tipo User
+var _user : User ={
+    user: '',
+    password: '',
+    remember: false
+}
 
-//Crea una copia reactiva del objeto props.user, para no usar el objeto props.user directamente
-const user = reactive({ ...props.user });  
+//Crea una copia reactiva del objeto _user
+const user = reactive({ ..._user });  
 
 const store = useStore();   //Se define y usa el store
 const router = useRouter();   //Se define y usa el router
@@ -22,7 +28,7 @@ const router = useRouter();   //Se define y usa el router
 //Funcion para manejar el envio del formulario
 const handleSubmit = () => {
   //Se almacena el usuario en el store
-  store.setUser({ user: user.user, password: user.password, remember: user.remember });
+  store.setUser( _user );
   //Redirigir a la vista Home
   router.push('/home');
 };
@@ -40,14 +46,14 @@ const handleSubmit = () => {
             <!-- Input para el usuario -->
             <div class="input-bx">
                 <!-- v-model se utiliza para manejar la informacion del input -->
-                <input v-model="user.user" type="text" placeholder="Usuario" required />
+                <input v-model="_user.user" type="text" placeholder="Usuario" required />
                 <!-- icono de usuario -->
                 <ion-icon class="icon" name="person-circle"></ion-icon>
             </div>
 
             <!-- Input para la contraseña -->
             <div class="input-bx">
-                <input v-model="user.password" type="password" placeholder="Contraseña" required />
+                <input v-model="_user.password" type="password" placeholder="Contraseña" required />
                 <!-- icono del candado -->
                 <ion-icon class="icon" name="lock-closed"></ion-icon>
             </div>
@@ -55,7 +61,7 @@ const handleSubmit = () => {
             <div class="remember-forgot">
                 <!-- Checkbox para recordar la contraseña -->
                 <label>
-                    <input type="checkbox" v-model="user.remember" /> Recordarme
+                    <input type="checkbox" v-model="_user.remember" /> Recordarme
                 </label>
                 <!-- Enlace por si olvidaste la contraseña -->
                 <a href="#">Olvidaste tu contraseña</a>

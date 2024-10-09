@@ -12,8 +12,8 @@ export const useStore = defineStore('main', {
   //Se crean las acciones
   actions: {   
     //Funcion para setear el usuario
-    setUser(user: User) {
-      this.user = user;
+    setUser(newUser: User) {
+      this.user = newUser;
     },
   },
 });
