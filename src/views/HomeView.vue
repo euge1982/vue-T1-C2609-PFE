@@ -14,17 +14,16 @@
 
   //Funcion para cerrar la sesion
   const logout = () => {
-    store.setUser({ user: '', password: '', remember: false });
+    store.setUser({ id: 1, firstName: '', lastName: '', isAdmin: false, refreshToken: [], userName: '', password: '', remember: false });
     router.push('/');
   }
-
 </script>
 
 <template>
   <!-- Datos del usuario -->
   <div>
-    <h1>Datos del Usuario</h1>
-    <p>Usuario: {{ user.user }}</p>
+    <h1>Datos del User</h1>;
+    <p>Usuario: {{ user.userName }}</p>;
     <p>Recordarme: {{ user.remember ? 'Sí' : 'No' }}</p>
 
     <!-- Botón para cerrar sesión -->

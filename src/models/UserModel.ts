@@ -1,6 +1,12 @@
 //Interfaz del User
 export interface User {
-    user: string;
+    id: number;
+    firstName: string;
+    lastName: string;
+    userName: string;
     password: string;
-    remember: boolean;
+    remember?: boolean;
+    isAdmin: boolean;
+    jwtToken?: string;
+    refreshToken: string[]
 }
